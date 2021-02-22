@@ -1,0 +1,27 @@
+name: Publish to Nuget
+
+on:
+  release:
+    types: [published]
+    
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
+        
+      - name: Get the Release version tag
+        id: vars
+        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+        
+      - name: Build and Create the package
+        run:
+          dotnet pack -c Release ThunderLib.RoR2/ThunderLib.RoR2.csproj
+          -p:Version=${{steps.vars.outputs.tag}}
+          -p:Authors="ThunderLib Team" -p:Company="ThunderLib Team"
+          -p:Description="ThunderLib for Risk of Rain 2"
+          -o .
+        
+      - name: Publish the package to Nuget
+        run: dotnet nuget push "*.nupkg" -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json
