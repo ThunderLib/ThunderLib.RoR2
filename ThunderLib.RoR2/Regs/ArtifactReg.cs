@@ -2,13 +2,10 @@
 {
     using System;
 
-    using ThunderLib.Core;
     using ThunderLib.Core.RegistrySystem;
-    using ThunderLib.Monomod;
 
     using System.Collections.Generic;
     using global::RoR2;
-    using Rewired.Data.Mapping;
     using System.Linq;
 
     public sealed class ArtifactReg : Registry<ArtifactReg, ArtifactDefinition, ArtifactReg.ArtifactBackend>
@@ -144,18 +141,4 @@
 
 /* Ordering needs:
  *  Must be after vanilla artifact catalog init
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
  */
